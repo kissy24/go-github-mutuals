@@ -5,13 +5,13 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/google/go-github/github"
+	"github.com/google/go-github/v50/github"
 	"golang.org/x/oauth2"
 )
 
 // Create GitHub Contents.
-func CreateGHContents(g_token string) (context.Context, *github.Client) {
-	token := os.Getenv(g_token)
+func CreateGHContents() (context.Context, *github.Client) {
+	token := os.Getenv("GITHUB_TOKEN")
 	ctx := context.Background()
 	ts := oauth2.StaticTokenSource(
 		&oauth2.Token{AccessToken: token},
@@ -45,14 +45,16 @@ func (fs FollowStatus) CompareUsers() []*github.User {
 }
 
 func main() {
-	token := "" // Set GitHub Token
-	ctx, client := CreateGHContents(token)
-	followers, _, err := client.Users.ListFollowers(ctx, "username", nil)
+	userName := "kissy24" // Change your user name.
+	ctx, client := CreateGHContents()
+	followers, resp, err := client.Users.ListFollowers(ctx, userName, nil)
 	if err != nil {
+		fmt.Println(resp.Body)
 		fmt.Println(err)
 	}
-	followings, _, err := client.Users.ListFollowing(ctx, "username", nil)
+	followings, resp, err := client.Users.ListFollowing(ctx, userName, nil)
 	if err != nil {
+		fmt.Println(resp.Body)
 		fmt.Println(err)
 	}
 	fs := FollowStatus{followings, followers}
