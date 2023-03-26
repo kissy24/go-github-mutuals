@@ -11,6 +11,10 @@ Find out who is not following each other on GitHub.
 go run main.go
 ```
 
+You can also run this script from the binaries in the assets below.
+
+https://github.com/kissy24/go-github-mutuals/releases/tag/1.0.0
+
 ## Requirements
 
 - [go-github](https://github.com/google/go-github)
