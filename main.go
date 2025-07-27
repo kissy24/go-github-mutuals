@@ -6,11 +6,13 @@ import (
 	"os"
 
 	"github.com/google/go-github/v50/github"
+	"github.com/joho/godotenv"
 	"golang.org/x/oauth2"
 )
 
 // Create GitHub Contents.
 func CreateGHContents() (context.Context, *github.Client) {
+	godotenv.Load()
 	token := os.Getenv("GITHUB_TOKEN")
 	ctx := context.Background()
 	ts := oauth2.StaticTokenSource(
